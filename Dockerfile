@@ -13,7 +13,7 @@ RUN mvn dependency:go-offline
 
 # Copiamos todo el proyecto y lo construimos
 COPY . .
-
+RUN mvn clean package -DskipTests -Dfile.encoding=UTF-8
 # Compilamos el proyecto y generamos el .jar
 RUN mvn clean package -DskipTests
 
