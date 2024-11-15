@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrostChef - Activación de Cuenta</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Header Styling */
+        .header {
+            font-size: 28px;
+            color: #00796b; /* Color verde */
+            font-weight: bold;
+            padding: 25px;
+            background-color: #e0f2f1; /* Fondo verde claro */
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 30px;
+        }
+
+        /* Greeting and Message Styling */
+        .greeting {
+            font-size: 22px;
+            color: #444;
+        }
+        .message {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.8;
+            margin: 25px 0;
+        }
+
+        /* Activation Code Styling */
+        .activation-code {
+            font-size: 36px;
+            color: #00796b; /* Verde oscuro */
+            font-weight: bold;
+            background-color: #e0f7fa; /* Fondo verde muy claro */
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: inline-block;
+        }
+
+        /* Button Styling */
+        .activation-link a {
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #6200ea; /* Botón púrpura */
+            padding: 15px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s;
+            display: inline-block;
+        }
+        .activation-link a:hover {
+            background-color: #3700b3; /* Púrpura oscuro */
+            transform: scale(1.05);
+        }
+
+        /* Separator Line */
+        .separator {
+            height: 2px;
+            background-color: #ddd;
+            margin: 40px 0;
+        }
+
+        /* Footer Styling */
+        .footer {
+            font-size: 16px; color: #777;
+            margin-top: 30px;
+        }
+        .footer a {
+            color: #00796b; /* Enlace verde */
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Media Links */
+        .social-media {
+            margin-top: 30px;
+        }
+        .social-media a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #00796b; /* Verde para enlaces sociales */
+            font-size: 20px;
+        }
+        .social-media a:hover {
+            color: #004d40; /* Verde más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">FrostChef - Activación de Cuenta</div>
+
+    <div class="greeting">Hola, <strong><span th:text="${username}"></span></strong>!</div>
+
+    <p class="message">
+        ¡Gracias por unirte a FrostChef! Para comenzar, necesitamos verificar tu dirección de correo electrónico.<br>
+        Por favor, ingresa el código a continuación o haz clic en el enlace de activación para completar tu registro.
+    </p>
+
+    <p>Tu código de verificación:</p>
+    <div class="activation-code" th:text="${activation_code}"></div>
+
+    <div class="activation-link">
+        <a th:href="${confirmationUrl}" target="_blank">Activa tu Cuenta</a>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="footer">
+        <p>Si no te registraste para una cuenta de FrostChef, ignora este correo o <a href="https://example.com/support">contacta al soporte</a>.</p>
+        <p>Visítanos: Av. Pio XII Santiago de Surco - Lima Perú</p>
+
+        <div class="social-media">
+            <a href="https://facebook.com/FrostChef" target="_blank">Facebook</a>
+            <a href="https://twitter.com/FrostChef" target="_blank">Twitter</a>
+            <a href="https://instagram.com/FrostChef" target="_blank">Instagram</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
