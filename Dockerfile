@@ -13,7 +13,7 @@ RUN ./mvnw clean package -DskipTests
 
 # Copia el JAR generado al contenedor
 RUN ls target # Verificar si el JAR se generó correctamente
-COPY target/FrostChef-backend-0.0.1-SNAPSHOT.jar /app.jar
+COPY target/FrostChef-backend-0.0.1-SNAPSHOT.jar.original /app.jar
 
 # Define el entrypoint para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app.jar"]
