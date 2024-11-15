@@ -1,15 +1,31 @@
-FROM ubuntu:latest AS build
+# Etapa de construcción: usamos Maven y Java 21
+FROM maven:3.8.6-openjdk-21 AS build
 LABEL authors="Yordi Gonzales"
-RUN apt-get update && apt-get install openjdk-21-jdk -y && apt-get install -y wget unzip
 
-# Establecer el directorio de trabajo
+# Establecemos el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-COPY . .
-RUN ./gradlew bootJar --no-daemon
+# Copiamos el archivo de configuración Maven para aprovechar la caché de dependencias
+COPY pom.xml .
 
+# Descargar todas las dependencias del proyecto
+RUN mvn dependency:go-offline
+
+# Copiamos todo el proyecto y lo construimos
+COPY . .
+
+# Compilamos el proyecto y generamos el .jar
+RUN mvn clean package -DskipTests
+
+# Etapa final: Usamos una imagen más liviana para ejecutar el JAR
 FROM openjdk:21-jdk-slim
+LABEL authors="Yordi Gonzales"
+
+# Exponemos el puerto en el que la aplicación corre
 EXPOSE 8080
-#COPY target/FrostChefBackendApplication-0.0.1-SNAPSHOT.jar app.jar
-COPY --from=build /app/build/libs/*.jar app.jar
+
+# Copiamos el JAR generado en la fase de construcción
+COPY --from=build /app/target/FrostChefBackendApplication-0.0.1-SNAPSHOT.jar app.jar
+
+# Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app.jar"]
