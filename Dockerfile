@@ -1,11 +1,6 @@
 FROM ubuntu:latest AS build
 LABEL authors="Yordi Gonzales"
-RUN apt-get update
-RUN apt-get install openjdk-21-jdk -y
-RUN apt-get install -y curl unzip
-
-RUN curl -s "https://get.sdkman.io" | bash
-RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle"
+RUN apt-get update && apt-get install openjdk-21-jdk -y && apt-get install -y wget unzip
 
 # Establecer el directorio de trabajo
 WORKDIR /app
