@@ -1,19 +1,19 @@
-# Dockerfile
-FROM amazoncorretto:17-alpine-jdk
-LABEL authors="Yordi Gonzales"
-
-# Copia el código fuente al contenedor
-COPY . /app
-
-# Ve al directorio de la aplicación
+# Etapa 1: Construcción
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 
-# Ejecuta Maven para compilar el proyecto y crear el JAR
+# Copia todos los archivos del proyecto
+COPY . .
+
+# Construye el proyecto y empaqueta el JAR (sin ejecutar los tests)
 RUN ./mvnw clean package -DskipTests
 
-# Copia el JAR generado al contenedor
-RUN ls target # Verificar si el JAR se generó correctamente
-COPY target/FrostChef-backend-0.0.1-SNAPSHOT.jar.original /app.jar
+# Etapa 2: Creación del contenedor final
+FROM amazoncorretto:17-alpine-jdk
+WORKDIR /app
+
+# Copia el JAR generado desde la etapa de construcción
+COPY --from=build /app/target/FrostChef-backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Define el entrypoint para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
