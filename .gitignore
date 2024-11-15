@@ -1,6 +1,6 @@
 HELP.md
 # Ignorar la carpeta target (donde Maven genera el JAR)
-target/
+#target/
 
 # Ignorar todos los archivos JAR
 *.jar
